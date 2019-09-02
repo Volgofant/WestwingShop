@@ -1,10 +1,5 @@
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.Random;
 
 public class MainPage {
     private WebDriver driver;
@@ -44,8 +39,10 @@ public class MainPage {
     By buttonLoginWishList = By.xpath("//div[@class=\"blockLoginForm__submit qa-blockLoginForm__submit\"]");
     By fuckingCoockie = By.xpath("//span[@class=\"cookiePolicyOverlay__close qa-cookiePolicyOverlay__close\"]");
 
-
-
+    public MainPage clickMyAccount() {
+        driver.findElement(myAccount).click();
+        return this;
+    }
     public MainPage closeFuckingCoockie() {
         try {
             driver.findElement(fuckingCoockie).click();

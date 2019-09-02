@@ -7,7 +7,7 @@ public class FurniturePage {
         this.driver = driver;
     }
 
-    By product = By.xpath("//button[@data-sku=\"RUQ19LAP93569-122752\"]/parent::article");
+    By product = By.xpath("//button[@data-sku=\"RUQ19LAP886147-137047\"]/parent::article");
 
     public FurniturePage clickProduct() {
         driver.findElement(product).click();

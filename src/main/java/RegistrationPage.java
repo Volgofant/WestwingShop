@@ -147,6 +147,9 @@ public class RegistrationPage<i> {
         driver.findElement(logInFacebook).click();
         return this;
     }
+    public String getActualPass() {
+        return driver.findElement(logInPass).getText();
+    }
 
 
 

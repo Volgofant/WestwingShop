@@ -1,13 +1,18 @@
 import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.remote.Response;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +38,7 @@ public class TestMainClass {
     private ProductPage productPage;
     private BillPages billPages;
 
+
     public void Wait2() {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.invisibilityOfElementLocated(By.className("cookiePolicyOverlay qa-cookiePolicyOverlay cookiePolicyOverlay--active")));
     }
@@ -44,7 +50,7 @@ public class TestMainClass {
     public TestMainClass screenshot() {
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         try {
-            FileHandler.copy(screenshot, new File("C:\\Users\\viktor.nenashev\\IdeaProjects\\Shop\\screenshots\\" + fileName));
+            FileHandler.copy(screenshot, new File("C:\\Users\\viktor.nenashev\\screenshots\\" + fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,7 +66,6 @@ public class TestMainClass {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         driver.manage().window().maximize();
-//        driver.get("https://alice-ru.192.168.42.10.xip.io/");
         driver.get("https://alice-ru.shop-stage.ww-ru.ru/");
         mainPage = new MainPage(driver);
         mainPage.closeFuckingCoockie();
@@ -229,7 +234,7 @@ public class TestMainClass {
 
     }
     @Test
-    public void registrationOnFacebook() {
+    public void registrationOnFacebook() throws InterruptedException {
         mainPage.clickRegistration();
         String mainWindow = driver.getWindowHandle();
         registrationPage.clickSingInFacebook();
@@ -242,6 +247,7 @@ public class TestMainClass {
     public void logIngOnFacebook() throws InterruptedException {
         mainPage.clickRegistration();
         String mainWindow = driver.getWindowHandle();
+        Thread.sleep(500);
         registrationPage.loginInFacebook();
         registrationPage.inputFacebookInfo();
         driver.switchTo().window(mainWindow);
@@ -338,8 +344,8 @@ public class TestMainClass {
     @Test
     public void doOrderRepeatedlyTimeCash() {
         mainPage.clickRegistration();
-        registrationPage.insertLogInMail("baal73@bk.ru");
-        registrationPage.insertLogInPass("westwingpass");
+        registrationPage.insertLogInMail("adyshatov@bk.ru");
+        registrationPage.insertLogInPass("westwingpas");
         registrationPage.clickLogInButton();
         mainPage.clickFurniture();
         furniturePage.clickProduct();
@@ -359,8 +365,8 @@ public class TestMainClass {
     @Test
     public void doOrderRepeatedlyTimeCreditCard() {
         mainPage.clickRegistration();
-        registrationPage.insertLogInMail("baal73@bk.ru");
-        registrationPage.insertLogInPass("westwingpass");
+        registrationPage.insertLogInMail("adyshatov@bk.ru");
+        registrationPage.insertLogInPass("westwingpas");
         registrationPage.clickLogInButton();
         mainPage.clickFurniture();
         furniturePage.clickProduct();
@@ -377,6 +383,53 @@ public class TestMainClass {
         }
         Assert.assertEquals("ООО \"ВЕСТВИНГ РАША\"", billPages.getTextYandexPayService());
     }
+    @Test
+    public void changePass() throws InterruptedException {
+        mainPage.clickRegistration();
+        Integer element = registrationPage.i;
+        String str = Integer.toString(element);
+        registrationPage.choiseMaleGender();
+        registrationPage.insertSignInName("nenashev" + str);
+        registrationPage.insertSignInSurname("nenashev" + str);
+        registrationPage.insertSignInMail("nenashev" + str + "@mail.ru");
+        registrationPage.insertSignInPass("westwingpas");
+        registrationPage.checkBoxAgreement();
+        registrationPage.checkBoxMailSpam();
+        registrationPage.clickSignInButton();
+        mainPage.clickMyAccount();
+        accountPage.clickChangeDate();
+        accountPage.clickButtonChangePass();
+        accountPage.inputActualPass("westwingpas");
+        accountPage.inputNewPass("newwestwingpas");
+        accountPage.inputNewPassConfirm("newwestwingpas");
+        accountPage.clickSaveNewPass();
+        Thread.sleep(3000);
+        String OkPassChange = accountPage.getTextPassChange();
+        Assert.assertEquals("Пароль успешно изменен", OkPassChange);
+    }
+
+//    @Test
+//    public void doCheckSumOrder() {
+//        mainPage.clickRegistration();
+//        registrationPage.insertLogInMail("adyshatov@bk.ru");
+//        registrationPage.insertLogInPass("westwingpas");
+//        registrationPage.clickLogInButton();
+//        mainPage.clickFurniture();
+//        furniturePage.clickProduct();
+//        productPage.clickButtonInBasket();
+//        mainPage.clickBasketSpan();
+//        String sum = billPages.getFinalSum();
+//        basketPage.clickPayButton();
+//        try {
+//            billPages.choiseCreditCard();
+//            billPages.clickButtonNextStep();
+//            billPages.clickCheckoutBtn();
+//        } catch (Exception e) {
+//            billPages.clickButtonNextStep();
+//            billPages.clickCheckoutBtn();
+//        }
+//        Assert.assertEquals(sum, billPages.getYandexSum());
+//    }
 //    @Rule
 //    public TestWatcher watcher = new TestWatcher() {
 //        @Override
@@ -384,7 +437,6 @@ public class TestMainClass {
 //            screenshot();
 //        }
 //    };
-
 //    @Test
 //    public void registrationFullMail() {
 //        mainPage.clickRegistration();
@@ -399,7 +451,6 @@ public class TestMainClass {
 //        registrationPage.clickSignInButton();
 //        Assert.assertEquals("nenashev" +  str, mainPage.getNameLogin());
 //    }    // механизм регистрации нового пользователя.
-
     @After
     public void tierDown() {
 //        screenshot();

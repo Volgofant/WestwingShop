@@ -25,7 +25,15 @@ public class BillPages {
     By checkoutBtn = By.xpath("//button[@class=\"qa-checkout-submit-button checkoutBtn btn-primary js-submitFinish blockCheckoutHeading__button checkout__headingCTA\"]");
     By textCheckReadyOrder = By.xpath("//p[@class=\"checkout__finish__left__text\"][1]");
     By textYandexPayService = By.xpath("//div[@class=\"payment-info2__showcase-name\"]");
+    By finalSum = By.xpath("//p[@class=\"cart__form__footer__totalTextRight\"]");
+    By yandexSum = By.xpath("//span[@class=\"price\"]");
 
+    public String getYandexSum() {
+        return driver.findElement(yandexSum).getText();
+    }
+    public String getFinalSum() {
+        return driver.findElement(finalSum).getText();
+    }
     public String getTextYandexPayService() {
         return driver.findElement(textYandexPayService).getText();
     }

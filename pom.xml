@@ -16,7 +16,6 @@
         <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
         <allure-junit4.version>2.6.0</allure-junit4.version>
     </properties>
-
 <dependencies>
     <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
