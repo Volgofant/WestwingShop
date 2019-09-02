@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="20" failures="0" name="TestMainClass" time="253.688" errors="0" skipped="0">
+<testsuite tests="21" failures="0" name="TestMainClass" time="286.849" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.3+12-b304.10"/>
@@ -62,24 +62,25 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="TestMainClass" name="changePass" time="16.314"/>
-  <testcase classname="TestMainClass" name="registrationWrongMail" time="6.663"/>
-  <testcase classname="TestMainClass" name="registrationBigPassword" time="8.054"/>
-  <testcase classname="TestMainClass" name="WishList" time="13.734"/>
-  <testcase classname="TestMainClass" name="WishListProductInBasket" time="17.963"/>
-  <testcase classname="TestMainClass" name="registrationNullPassword" time="6.568"/>
-  <testcase classname="TestMainClass" name="registrationRepeatMail" time="7.353"/>
-  <testcase classname="TestMainClass" name="registrationSmallPassword" time="7.157"/>
-  <testcase classname="TestMainClass" name="doOrderFirstTime" time="26.485"/>
-  <testcase classname="TestMainClass" name="WishListProductDelete" time="12.992"/>
-  <testcase classname="TestMainClass" name="registrationNullSurNameTest" time="6.43"/>
-  <testcase classname="TestMainClass" name="doOrderRepeatedlyTimeCash" time="31.763"/>
-  <testcase classname="TestMainClass" name="registrationNullNameTest" time="7.251"/>
-  <testcase classname="TestMainClass" name="registrationOkMale" time="10.077"/>
-  <testcase classname="TestMainClass" name="doOrderRepeatedlyTimeCreditCard" time="22.485"/>
-  <testcase classname="TestMainClass" name="registrationNullMail" time="6.943"/>
-  <testcase classname="TestMainClass" name="registrationOkFemale" time="10.392"/>
-  <testcase classname="TestMainClass" name="logIngOnFacebook" time="14.846"/>
-  <testcase classname="TestMainClass" name="registrationNullAll" time="7.341"/>
-  <testcase classname="TestMainClass" name="registrationOnFacebook" time="12.877"/>
+  <testcase classname="TestMainClass" name="changePass" time="16.625"/>
+  <testcase classname="TestMainClass" name="registrationWrongMail" time="6.58"/>
+  <testcase classname="TestMainClass" name="registrationBigPassword" time="7.102"/>
+  <testcase classname="TestMainClass" name="WishList" time="13.045"/>
+  <testcase classname="TestMainClass" name="forgetPass" time="19.157"/>
+  <testcase classname="TestMainClass" name="WishListProductInBasket" time="18.812"/>
+  <testcase classname="TestMainClass" name="registrationNullPassword" time="7.157"/>
+  <testcase classname="TestMainClass" name="registrationRepeatMail" time="7.995"/>
+  <testcase classname="TestMainClass" name="registrationSmallPassword" time="6.632"/>
+  <testcase classname="TestMainClass" name="doOrderFirstTime" time="29.282"/>
+  <testcase classname="TestMainClass" name="WishListProductDelete" time="12.972"/>
+  <testcase classname="TestMainClass" name="registrationNullSurNameTest" time="6.505"/>
+  <testcase classname="TestMainClass" name="doOrderRepeatedlyTimeCash" time="36.156"/>
+  <testcase classname="TestMainClass" name="registrationNullNameTest" time="6.841"/>
+  <testcase classname="TestMainClass" name="registrationOkMale" time="13.507"/>
+  <testcase classname="TestMainClass" name="doOrderRepeatedlyTimeCreditCard" time="27.571"/>
+  <testcase classname="TestMainClass" name="registrationNullMail" time="6.351"/>
+  <testcase classname="TestMainClass" name="registrationOkFemale" time="10.738"/>
+  <testcase classname="TestMainClass" name="logIngOnFacebook" time="14.668"/>
+  <testcase classname="TestMainClass" name="registrationNullAll" time="6.457"/>
+  <testcase classname="TestMainClass" name="registrationOnFacebook" time="12.696"/>
 </testsuite>

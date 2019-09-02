@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: TestMainClass
 -------------------------------------------------------------------------------
-Tests run: 20, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 253.758 sec
+Tests run: 21, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 286.943 sec

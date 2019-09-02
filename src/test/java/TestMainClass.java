@@ -212,15 +212,26 @@ public class TestMainClass {
         mainPage.clickRegistration();
         Integer element = registrationPage.i;
         String str = Integer.toString(element);
+        String constant = "nenashev" + str;
         registrationPage.choiseMaleGender();
-        registrationPage.insertSignInName("nenashev" + str);
-        registrationPage.insertSignInSurname("nenashev" + str);
-        registrationPage.insertSignInMail("nenashev" + str + "@mail.ru");
-        registrationPage.insertSignInPass("nenashev" + str);
+        registrationPage.insertSignInName(constant);
+        registrationPage.insertSignInSurname(constant);
+        registrationPage.insertSignInMail(constant + "@mail.ru");
+        registrationPage.insertSignInPass(constant);
         registrationPage.checkBoxAgreement();
         registrationPage.checkBoxMailSpam();
         registrationPage.clickSignInButton();
-        Assert.assertEquals("nenashev" + str, mainPage.getNameLogin());
+        Assert.assertEquals(constant, mainPage.getNameLogin());
+        driver.get("https://crm-app-stage.ww-ru.ru/ru/messages?created_at=&ecircle_response=&email=&message_type=&origin=&state=");
+        driver.findElement(By.xpath("//input[@id=\"Email\"]")).sendKeys("");
+        driver.findElement(By.xpath("//input[@id=\"next\"]")).click();
+        driver.findElement(By.xpath("//input[@id=\"Passwd\"]")).sendKeys("");
+        driver.findElement(By.xpath("//input[@id=\"signIn\"]")).click();
+        Assert.assertEquals(constant + "@mail.ru", driver.findElement(By.xpath("//tbody/tr/td[2]")).getText());
+        Assert.assertEquals("executed", driver.findElement(By.xpath("//tbody/tr/td[3]")).getText());
+        Assert.assertEquals("newsletter_subscriptiondoubleconfirmation", driver.findElement(By.xpath("//tbody/tr/td[7]")).getText());
+
+
     }
     @Test
     public void registrationNullAll() {
@@ -300,6 +311,7 @@ public class TestMainClass {
         Thread.sleep(1000);
         mainPage.clickWishSpan();
         wishPage.clickProductBuy();
+        Thread.sleep(500);
         Assert.assertEquals("Товар успешно добавлен в корзину", wishPage.getTextProductBuyed());
         mainPage.clickBasketSpan();
         Assert.assertEquals(product, basketPage.getProductName());
@@ -361,6 +373,14 @@ public class TestMainClass {
             billPages.clickCheckoutBtn();
         }
         Assert.assertEquals("Спасибо за покупку!", billPages.getTextCheckreadyOrder());
+        driver.get("https://crm-app-stage.ww-ru.ru/ru/messages?created_at=&ecircle_response=&email=&message_type=&origin=&state=");
+        driver.findElement(By.xpath("//input[@id=\"Email\"]")).sendKeys("");
+        driver.findElement(By.xpath("//input[@id=\"next\"]")).click();
+        driver.findElement(By.xpath("//input[@id=\"Passwd\"]")).sendKeys("");
+        driver.findElement(By.xpath("//input[@id=\"signIn\"]")).click();
+        Assert.assertEquals("adyshatov@bk.ru", driver.findElement(By.xpath("//tbody/tr/td[2]")).getText());
+        Assert.assertEquals("executed", driver.findElement(By.xpath("//tbody/tr/td[3]")).getText());
+        Assert.assertEquals("sales_orderconfirmation", driver.findElement(By.xpath("//tbody/tr/td[7]")).getText());
     }
     @Test
     public void doOrderRepeatedlyTimeCreditCard() {
@@ -382,6 +402,14 @@ public class TestMainClass {
             billPages.clickCheckoutBtn();
         }
         Assert.assertEquals("ООО \"ВЕСТВИНГ РАША\"", billPages.getTextYandexPayService());
+        driver.get("https://crm-app-stage.ww-ru.ru/ru/messages?created_at=&ecircle_response=&email=&message_type=&origin=&state=");
+        driver.findElement(By.xpath("//input[@id=\"Email\"]")).sendKeys("");
+        driver.findElement(By.xpath("//input[@id=\"next\"]")).click();
+        driver.findElement(By.xpath("//input[@id=\"Passwd\"]")).sendKeys("");
+        driver.findElement(By.xpath("//input[@id=\"signIn\"]")).click();
+        Assert.assertEquals("adyshatov@bk.ru", driver.findElement(By.xpath("//tbody/tr/td[2]")).getText());
+        Assert.assertEquals("executed", driver.findElement(By.xpath("//tbody/tr/td[3]")).getText());
+        Assert.assertEquals("sales_orderconfirmation", driver.findElement(By.xpath("//tbody/tr/td[7]")).getText());
     }
     @Test
     public void changePass() throws InterruptedException {
@@ -407,7 +435,31 @@ public class TestMainClass {
         String OkPassChange = accountPage.getTextPassChange();
         Assert.assertEquals("Пароль успешно изменен", OkPassChange);
     }
-
+    @Test
+    public void forgetPass() throws InterruptedException {
+        mainPage.clickRegistration();
+        driver.findElement(By.xpath("//a[@class=\"jsCheckout__forms__checkout__link checkout__forms__checkout__link\"]")).click();
+        driver.findElement(By.xpath("//input[@class=\"passwordForgot__email\"]")).sendKeys("ovetstrahaev@yandex.ru");
+        driver.findElement(By.xpath("//button[@class=\"passwordForgot__button btn-primary ga-forgot-password\"]")).click();
+        Assert.assertEquals("Пожалуйста, проверьте свои входящие", driver.findElement(By.xpath("//div[@class=\"passwordConfirm__headline\"]")).getText());
+        driver.get("https://mail.yandex.ru/?addMultiUserFromDropdownButton=true&uid=928663549#inbox");
+        Thread.sleep(500);
+        driver.findElement(By.xpath("//a[@class=\"button2 button2_size_mail-big button2_theme_mail-white button2_type_link HeadBanner-Button HeadBanner-Button-Enter with-shadow\"]")).click();
+        driver.findElement(By.xpath("//input[@id=\"passp-field-login\"]")).sendKeys("ovetstrahaev@yandex.ru\n");
+        driver.findElement(By.xpath("//input[@id=\"passp-field-passwd\"]")).sendKeys("westwingpas");
+        driver.findElement(By.xpath("//button[@class=\"control button2 button2_view_classic button2_size_l button2_theme_action button2_width_max button2_type_submit passp-form-button\"]")).click();
+//        driver.findElement(By.xpath("//button[@class=\"control button2 button2_view_classic button2_size_l button2_theme_normal button2_width_max passp-form-button\"]")).click();
+        driver.findElement(By.xpath("//span[text()='Смена вашего пароля на Westwing.ru']")).click();
+        driver.findElement(By.xpath("//*[@id=\"nb-1\"]/body/div[2]/div[5]/div/div[3]/div[3]/div[2]/div[5]/div[1]/div/div[3]/div/div[1]/table/tbody/tr[1]/td[2]/table[1]/tbody/tr/td/table[2]/tbody/tr/td/table[3]/tbody/tr/td/div/table/tbody/tr/td/a")).click();
+        for (String winHandle : driver.getWindowHandles()) {
+            System.out.println(winHandle);
+            driver.switchTo().window(winHandle);
+        }
+        driver.findElement(By.xpath("//input[@id=\"PasswordForm_password\"]")).sendKeys("westwingpas");
+        driver.findElement(By.xpath("//button[@class=\"btn-primary restorePassword__form__btn ga-reset-password\"]")).click();
+        Assert.assertEquals("Овец Трахаев", driver.findElement(By.xpath("//p[@class=\"accountStep1__row__box__main__text\"]")).getText());
+        Assert.assertEquals("Пароль успешно изменен", driver.findElement(By.xpath("//div[@class=\"message__text\"]")).getText());
+    }
 //    @Test
 //    public void doCheckSumOrder() {
 //        mainPage.clickRegistration();
